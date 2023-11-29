@@ -19,3 +19,13 @@ IMPORTANT! For now is working with only **PostgreSQL** database.
 
 4. Whenever you want to generate a url: `from database_dump.helpers import make_database_dump`
 5. You can give custom arguments to it or if is not provided it will get the required aguments from settings file.
+
+## How to restore?
+
+1. Make sure you login into psql and create a new database with CREATE DATABASE %database_name%;
+2. There are 2 ways to restore the dump:
+
+   - pg_restore -U %username% -h %hostname% -d %database_name% -v %dump_path%
+   - psql %database_name% < %dump_path%
+
+Try to use first one and if it gives any errors try the second one.
