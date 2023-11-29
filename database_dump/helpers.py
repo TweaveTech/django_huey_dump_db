@@ -6,7 +6,15 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
-def make_database_dump(username=None, database_name=None, password=None, dump_dir=None):
+def make_database_dump(username=None, database_name=None, password=None, dump_dir=None, delete_after=10):
+    '''
+
+    :param username: The username that have access to the db
+    :param database_name: The name of the db
+    :param password: Password of the db
+    :param dump_dir: The absolute path where to put the dumps (default will be base dir / dumps)
+    :param delete_after: The max number of dumps present in the folder. After reach that number the older will start getting deleted
+    '''
 
     if username is None:
         username = settings.DATABASES['default']['USER']
@@ -38,7 +46,7 @@ def make_database_dump(username=None, database_name=None, password=None, dump_di
     # Check for more than 5 files in the dumps directory
     dump_files = sorted(os.listdir(dump_dir))
 
-    while len(dump_files) > 10:
+    while len(dump_files) > delete_after:
         # Remove the oldest file
         to_remove = dump_files[0]
         logger.warning(f'ABOUT DELETE FILE: {to_remove}')
