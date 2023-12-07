@@ -29,3 +29,7 @@ IMPORTANT! For now is working with only **PostgreSQL** database.
    - psql %database_name% < %dump_path%
 
 Try to use first one and if it gives any errors try the second one.
+
+## Notes:
+
+- Assumtion is made that postgres used > 11 as --no-comment is used
