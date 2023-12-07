@@ -40,7 +40,11 @@ def make_database_dump(username=None, database_name=None, password=None, dump_di
     # Set the PGPASSWORD environment variable to avoid password prompt
     os.environ['PGPASSWORD'] = password
 
-    command_array = ['pg_dump', '-h', 'localhost', '--username=' + username, '--dbname=' + database_name, '-F', 'c', '-Z', '9', '-f', file_path]
+    command_array = [
+        'pg_dump', '-h', 'localhost', '--username=' + username,
+        '--dbname=' + database_name, '-F', 'c', '-Z', '9', '--no-comments',
+        '-f', file_path
+    ]
     command_str = ' '.join(command_array)
     logger.warning(f'ABOUT TO RUN COMMAND: {command_str}')
     subprocess.run(command_array, check=True)
